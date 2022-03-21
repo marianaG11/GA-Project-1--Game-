@@ -4,7 +4,7 @@
 body {
     margin: 0;
     font-family: helvetica;
-    /* background-color: #808b96; */
+  
 
 
 }
@@ -13,12 +13,9 @@ body {
 display: grid;
 grid-template-rows: 1fr 3fr 1fr;
 text-align: center;
-/* justify-content: center; */
-/* align-items: center; */
+justify-content: center;
 max-width: 1000px;
 max-height: 800px;
-/* width: 100vw; 
-height: 100vh;  change or keep max width?  */
 }
 
 #main {
@@ -29,6 +26,7 @@ background-color: #808b96;
 
 #footer {
 background-color: darkgray;
+height: 30px;
 }
 
 #time-options, #matched-pairs {
@@ -47,23 +45,27 @@ img {
 }
 
 .cards {
+display: grid; /* postions the cards so that they are no longer off set*/
 position: relative;
 border: solid 5px;
-border-color: white;
-width: 85px;
-height: 85px;
+border-color: grey;
+width: 100%;
+/* height: 85px; */
+
+
 }
 
-/* .front, .back {
+.front, .back {
 width: 100%;
 height: 100%;
-} */
+position: absolute;  /*this sets the images so they can overlap */
+border-radius: 15px;
+}
 
 
 .middle {
-display: flex;
-flex-wrap: wrap; /*to overlap images */
-width: 625px;
-height: 550px;
-
+display: grid;
+width: 100%;
+/* height: 550px; */
+grid-template-columns: 25% 25% 25% 25%;
 }
