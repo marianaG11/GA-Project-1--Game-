@@ -76,7 +76,7 @@ img {
 .middle .cards .view{
   transform-style: flat;
   
-  transition: transform 0.10s linear;
+  transition: transform 0.20s linear;
   pointer-events: none;
   user-select: none;
 }
@@ -88,3 +88,4 @@ img {
   transform: rotateY(90deg); /* card now stays flipped over until user clicks on it again*/
 } 
 
+/* add media queries */
