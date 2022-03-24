@@ -1,4 +1,3 @@
-console.log('this is working');
 
 //constants
 const cards = Array.from(document.querySelectorAll('.cards'));
@@ -18,8 +17,9 @@ let seconds = 30;
 const beginBtn = document.querySelector('#begin');
 const startOverBtn = document.querySelector('#start-over');
 const countdownEl = document.querySelector('#countdown');
-let messageEl = document.querySelector('#message');
+let messageEl = document.querySelector('#message'); //add instructions 
 let winOrLoseEl = document.querySelector('#win-lose');
+
 //add event listeners
 document.querySelector('#begin').addEventListener('click', begin); //for begin and start over buttons
 document.querySelector('#start-over').addEventListener('click', startOver);
@@ -28,6 +28,46 @@ beginBtn.addEventListener('click', begin);
 cards.forEach(function(card) {     //to flip cards
     card.addEventListener('click', flip);
 });
+
+function begin() { 
+    mixCards();
+    console.log('game has begun');
+    cards.forEach((card)=> {
+        card.style.pointerEvents = 'auto';
+    });
+    startTimer(seconds);
+}
+
+function flip(e){
+    let currentCard = e.target;
+        currentCard.classList.toggle('flip');
+    if (previousCard){
+         doCardsMatch(currentCard, previousCard); 
+    } else {
+        previousCard = currentCard;
+    }
+    showMessage();
+}
+
+function doCardsMatch(firstImage, secondImage){
+    let firstCardAttribute = firstImage.getAttribute('data-id'); //create elements to compare the 2 current cards
+    let secondCardAttribute = secondImage.getAttribute('data-id');
+    if (firstCardAttribute === secondCardAttribute) {
+        console.log('matched');
+        matchedSoFar.push(firstCardAttribute);
+        matchedSoFar.push(secondCardAttribute); //pushes cards into matched so far array
+        previousCard = null;  // null is a falsey data type
+        matchedCards++;
+        }else if (firstCardAttribute !== secondCardAttribute){
+        console.log('card is not a match');
+        setTimeout(() => {
+            firstImage.classList.remove('flip');   //flip back around to show question mark . add unflip function
+            secondImage.classList.remove('flip');
+            previousCard= null;
+            }, 800);
+        }
+};
+    
 
 function startTimer(total){
     console.log(total)
@@ -40,6 +80,7 @@ function startTimer(total){
     }
   }, 1000)
 }
+
 function update(total) {
     const seconds = total % 60;
     countdownEl.innerText = seconds;
@@ -50,7 +91,6 @@ function resetTimer() {
     countdownEl.innerText = '30';
     clearInterval(interval);
 }
-
 
 function startOver() {
     console.log('game will start over');
@@ -64,46 +104,6 @@ function startOver() {
     winOrLoseEl.innerText=' ';
  }
 
-
-function begin() { 
-    mixCards();
-    console.log('game has begun');
-    cards.forEach((card)=> {
-        card.style.pointerEvents = 'auto';
-    });
-    startTimer(seconds);
-    }
-
-function flip(e){
-    let currentCard = e.target;
-    currentCard.classList.toggle('flip');
-    if (previousCard){
-     doCardsMatch(currentCard, previousCard); 
-    } else {
-        previousCard = currentCard;
-    }
-    showMessage();
- }
-
-function doCardsMatch(firstImage, secondImage){
-    let firstCardAttribute = firstImage.getAttribute('data-id'); //create elements to compare the 2 current cards
-    let secondCardAttribute = secondImage.getAttribute('data-id');
-        if (firstCardAttribute === secondCardAttribute) {
-            console.log('matched');
-            matchedSoFar.push(firstCardAttribute);
-            matchedSoFar.push(secondCardAttribute); //pushes cards into matched so far array
-            previousCard = null;  // null is a falsey data type
-            matchedCards++;
-        }else if (firstCardAttribute !== secondCardAttribute){
-            console.log('card is not a match');
-            setTimeout(() => {
-                firstImage.classList.remove('flip');   //flip back around to show question mark . add unflip function
-                secondImage.classList.remove('flip');
-                previousCard= null;
-            }, 800);
-        }
-    };
-
 function showMessage() {
     if (matchedSoFar.length === cards.length){
         clearInterval(interval); 
@@ -111,8 +111,6 @@ function showMessage() {
     }
 }
 showMessage();
-//maybe add a text element in the html, so that the message shows up //or maybe show the message at the bottom
-//add instructions on the right side
 
 function mixCards(){
     console.log('cards will be shuffled');
