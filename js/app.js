@@ -10,71 +10,82 @@ console.log(cards);
 //state variables 
 let previousCard; 
 let matchedCards = 0;
-let matchedSoFar = []; // array use correct match using push //didnt use
+let matchedSoFar = []; 
+let total = 0;
+let seconds = 30;
+
+//chached
 const beginBtn = document.querySelector('#begin');
 const startOverBtn = document.querySelector('#start-over');
-// const startOverBtn = document.querySelector.addEventListener('click', )('#start-over'); //what to add inside addeventlistener
-// beginBtn.addEventListener('click', begin); //for begin and start over buttons
-// const cardsBack = Array.from(document.querySelector('.back')); need for start over?
+const countdownEl = document.querySelector('#countdown');
+let messageEl = document.querySelector('#message');
+let winOrLoseEl = document.querySelector('#win-lose');
+//add event listeners
+document.querySelector('#begin').addEventListener('click', begin); //for begin and start over buttons
+document.querySelector('#start-over').addEventListener('click', startOver);
+startOverBtn.addEventListener('click', startOver);
+beginBtn.addEventListener('click', begin);
+cards.forEach(function(card) {     //to flip cards
+    card.addEventListener('click', flip);
+});
 
-// timer function not working - it doesnt show and it also does not stop in the console
-let time = 30;
-// let intervalId;
-let countdownEl = document.querySelector('#countdown');
-let startTimer = function(){
-    console.log(time)
-    countdownEl.innerText = time;
-    console.log('timer started');
-    if (time > 0) {
-       time--;
-    }else {
-        clearInterval(startTimer);
+function startTimer(total){
+    console.log(total)
+    interval = setInterval(() => {
+     total--;
+     update(total);
+     if (total <= 0) {
+        interval = clearInterval(interval);
+        winOrLoseEl.innerText = "YOU LOST!"
     }
-} 
+  }, 1000)
+}
+function update(total) {
+    const seconds = total % 60;
+    countdownEl.innerText = seconds;
+}
 
-// if (secondsLeft< 0 ) {
-// clearInterval(startTimer);
-// document.getElementById('#message').innerHTML = 'TIME IS OVER!'
-//     }       
-// }, 1000)
+function resetTimer() {
+    seconds = 30;
+    countdownEl.innerText = '30';
+    clearInterval(interval);
+}
 
 
-
-
-const startOver = function() {
+function startOver() {
     console.log('game will start over');
     cards.forEach(function(card){
        card.classList.remove('flip');
     });
-   }
-   startOverBtn.addEventListener('click', startOver);
+    matchedCards =0;
+    matchedSoFar= [];
+    mixCards();
+    resetTimer();
+    winOrLoseEl.innerText=' ';
+ }
 
 
-const begin = function() { 
+function begin() { 
     mixCards();
     console.log('game has begun');
     cards.forEach((card)=> {
         card.style.pointerEvents = 'auto';
     });
-    // startOver(); //trying to get cards to be covered again before mixing 
-    setInterval(startTimer, 1000); 
+    startTimer(seconds);
     }
 
-beginBtn.addEventListener('click', begin);
-const flip = function(e){
+function flip(e){
     let currentCard = e.target;
     currentCard.classList.toggle('flip');
     if (previousCard){
      doCardsMatch(currentCard, previousCard); 
-    //  showWinningMessage();
     } else {
         previousCard = currentCard;
-        
     }
+    showMessage();
  }
 
- 
-const doCardsMatch = function(firstImage, secondImage){
+function doCardsMatch(firstImage, secondImage){
     let firstCardAttribute = firstImage.getAttribute('data-id'); //create elements to compare the 2 current cards
     let secondCardAttribute = secondImage.getAttribute('data-id');
         if (firstCardAttribute === secondCardAttribute) {
@@ -83,11 +94,6 @@ const doCardsMatch = function(firstImage, secondImage){
             matchedSoFar.push(secondCardAttribute); //pushes cards into matched so far array
             previousCard = null;  // null is a falsey data type
             matchedCards++;
-            if(matchedCards === 6){
-               setTimeout(() => {
-                return mixCards();
-               }, 1000);
-            }
         }else if (firstCardAttribute !== secondCardAttribute){
             console.log('card is not a match');
             setTimeout(() => {
@@ -98,31 +104,17 @@ const doCardsMatch = function(firstImage, secondImage){
         }
     };
 
-const messageEl = document.querySelector('#message');
-const showWinningMessage = function() {
+function showMessage() {
     if (matchedSoFar.length === cards.length){
-        messageEl.innerText = "YOU WON!"
+        clearInterval(interval); 
+        winOrLoseEl.innerText = "YOU WON!"
     }
 }
-showWinningMessage();
+showMessage();
 //maybe add a text element in the html, so that the message shows up //or maybe show the message at the bottom
 //add instructions on the right side
 
-
-function init(e){
-    console.log('im working');
-}
-init(); 
-// const startOver = function() {
-//      console.log('game will start over');
-//      cards.forEach(function(card){
-//         card.classList.remove('flip');
-//      });
-//     }
-//     startOverBtn.addEventListener('click', startOver);
-
-
-let mixCards = function(){
+function mixCards(){
     console.log('cards will be shuffled');
     matchedCards = 0;
     currentCard = previousCard = "";
@@ -132,14 +124,8 @@ let mixCards = function(){
     }
 }
 
-cards.forEach(function(card) {     //to flip cards
-    card.addEventListener('click', flip);
-});
 
-document.querySelector('#begin').addEventListener('click', begin); //for begin and start over buttons
-document.querySelector('#start-over').addEventListener('click', startOver);
-// document.querySelector('#start-time').addEventListener('click', startTimer); //for tine options
-// document.querySelector('#no-time').addEventListener('click', noTime);
+
 
 
 
