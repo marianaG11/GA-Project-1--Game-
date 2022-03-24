@@ -10,32 +10,36 @@ console.log(cards);
 //state variables 
 let previousCard; 
 let matchedCards = 0;
-let matchedSoFar = 0; // array use correct match using push //didnt use
+let matchedSoFar = []; // array use correct match using push //didnt use
 const beginBtn = document.querySelector('#begin');
 const startOverBtn = document.querySelector('#start-over');
 // const startOverBtn = document.querySelector.addEventListener('click', )('#start-over'); //what to add inside addeventlistener
 // beginBtn.addEventListener('click', begin); //for begin and start over buttons
 // const cardsBack = Array.from(document.querySelector('.back')); need for start over?
 
-//timer function not working - it doesnt show and it also does not stop in the console
-// const startingTime = 1;
-// let time = startingTime * 60;
-// const countdownEl=document.getElementById('countdown');
+// timer function not working - it doesnt show and it also does not stop in the console
+let time = 30;
+// let intervalId;
+let countdownEl = document.querySelector('#countdown');
+let startTimer = function(){
+    console.log(time)
+    countdownEl.innerText = time;
+    console.log('timer started');
+    if (time > 0) {
+       time--;
+    }else {
+        clearInterval(startTimer);
+    }
+} 
 
-// const startTimer = function(){
-//     const minutes = Math.floor(time / 60);
-//     let seconds = time % 60;
+// if (secondsLeft< 0 ) {
+// clearInterval(startTimer);
+// document.getElementById('#message').innerHTML = 'TIME IS OVER!'
+//     }       
+// }, 1000)
 
-//     seconds = seconds < 10 ? '0' + seconds : seconds
-//     countdownEl.innerHTMl = `${minutes}: ${seconds}`;
-//     time--;
-//     console.log('timer started');
-//     setInterval(startTimer, 1000); //same as 1 second
-// } 
 
-// const noTime = function(){
-//     console.log('no timer');
-// }
+
 
 const startOver = function() {
     console.log('game will start over');
@@ -53,7 +57,7 @@ const begin = function() {
         card.style.pointerEvents = 'auto';
     });
     // startOver(); //trying to get cards to be covered again before mixing 
-    // startTimer();
+    setInterval(startTimer, 1000); 
     }
 
 beginBtn.addEventListener('click', begin);
@@ -75,6 +79,8 @@ const doCardsMatch = function(firstImage, secondImage){
     let secondCardAttribute = secondImage.getAttribute('data-id');
         if (firstCardAttribute === secondCardAttribute) {
             console.log('matched');
+            matchedSoFar.push(firstCardAttribute);
+            matchedSoFar.push(secondCardAttribute); //pushes cards into matched so far array
             previousCard = null;  // null is a falsey data type
             matchedCards++;
             if(matchedCards === 6){
@@ -94,11 +100,13 @@ const doCardsMatch = function(firstImage, secondImage){
 
 const messageEl = document.querySelector('#message');
 const showWinningMessage = function() {
-    if (matchedCards.length === cards.length){
+    if (matchedSoFar.length === cards.length){
         messageEl.innerText = "YOU WON!"
     }
 }
-
+showWinningMessage();
+//maybe add a text element in the html, so that the message shows up //or maybe show the message at the bottom
+//add instructions on the right side
 
 
 function init(e){
@@ -130,8 +138,6 @@ cards.forEach(function(card) {     //to flip cards
 
 document.querySelector('#begin').addEventListener('click', begin); //for begin and start over buttons
 document.querySelector('#start-over').addEventListener('click', startOver);
-
-
 // document.querySelector('#start-time').addEventListener('click', startTimer); //for tine options
 // document.querySelector('#no-time').addEventListener('click', noTime);
 
