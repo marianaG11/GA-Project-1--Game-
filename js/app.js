@@ -10,13 +10,14 @@ console.log(cards);
 //state variables 
 let previousCard; 
 let matchedCards = 0;
-let matchedSoFar = 0; // array use correct match using push
+let matchedSoFar = 0; // array use correct match using push //didnt use
 const beginBtn = document.querySelector('#begin');
 const startOverBtn = document.querySelector('#start-over');
 // const startOverBtn = document.querySelector.addEventListener('click', )('#start-over'); //what to add inside addeventlistener
 // beginBtn.addEventListener('click', begin); //for begin and start over buttons
 // const cardsBack = Array.from(document.querySelector('.back')); need for start over?
 
+//timer function not working - it doesnt show and it also does not stop in the console
 // const startingTime = 1;
 // let time = startingTime * 60;
 // const countdownEl=document.getElementById('countdown');
@@ -36,20 +37,32 @@ const startOverBtn = document.querySelector('#start-over');
 //     console.log('no timer');
 // }
 
+const startOver = function() {
+    console.log('game will start over');
+    cards.forEach(function(card){
+       card.classList.remove('flip');
+    });
+   }
+   startOverBtn.addEventListener('click', startOver);
+
+
 const begin = function() { 
     mixCards();
     console.log('game has begun');
     cards.forEach((card)=> {
         card.style.pointerEvents = 'auto';
     });
+    // startOver(); //trying to get cards to be covered again before mixing 
     // startTimer();
     }
+
 beginBtn.addEventListener('click', begin);
 const flip = function(e){
     let currentCard = e.target;
     currentCard.classList.toggle('flip');
     if (previousCard){
-     doCardsMatch(currentCard, previousCard);  
+     doCardsMatch(currentCard, previousCard); 
+    //  showWinningMessage();
     } else {
         previousCard = currentCard;
         
@@ -75,10 +88,16 @@ const doCardsMatch = function(firstImage, secondImage){
                 firstImage.classList.remove('flip');   //flip back around to show question mark . add unflip function
                 secondImage.classList.remove('flip');
                 previousCard= null;
-            }, 1000);
-            
+            }, 800);
         }
     };
+
+const messageEl = document.querySelector('#message');
+const showWinningMessage = function() {
+    if (matchedCards.length === cards.length){
+        messageEl.innerText = "YOU WON!"
+    }
+}
 
 
 
@@ -86,13 +105,13 @@ function init(e){
     console.log('im working');
 }
 init(); 
-const startOver = function() {
-     console.log('game will start over');
-     cards.forEach(function(card){
-        card.classList.remove('flip');
-     });
-    }
-    startOverBtn.addEventListener('click', startOver);
+// const startOver = function() {
+//      console.log('game will start over');
+//      cards.forEach(function(card){
+//         card.classList.remove('flip');
+//      });
+//     }
+//     startOverBtn.addEventListener('click', startOver);
 
 
 let mixCards = function(){

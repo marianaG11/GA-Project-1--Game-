@@ -15,28 +15,30 @@ body {
   text-align: center;
   justify-content: center;
   max-width: 1200px;
-  max-height: 800px;
+  max-height: 700px;
 }
 
 #main {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   background-color: #808b96;
+  max-height: 500px;  /**/
 }
 
 #footer {
-  background-color: darkgray;
+  background-color: #808b96;
   height: 30px;
 }
 
-#time-options, #matched-pairs {
-  background-color: darksalmon;
-  height: 800px;
+#time-options, #message {
+  background-color: #6E8898FF;
+  height: 500px;
 }
 
 #game-options {
-  background-color: darkgray;
-  height: 50px;
+  background-color: #808b96;
+  height: 100px;
+  padding: 36px;
 }
 
 img {
@@ -76,7 +78,7 @@ img {
 .middle .cards .view{
   transform-style: flat;
   
-  transition: transform 0.20s linear;
+  transition: transform 0.15s linear;
   pointer-events: none;
   user-select: none;
 }
@@ -89,3 +91,8 @@ img {
 } 
 
 /* add media queries */
+/* @media only screen and (max-width: 1024px) {
+  #game-board {
+    max-height: 700px;
+  }
+}; */
