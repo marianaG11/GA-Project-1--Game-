@@ -8,7 +8,6 @@ cards.forEach((card)=> {
 console.log(cards);
 
 //state variables 
-let  = []; 
 let previousCard; 
 let matchedCards = 0;
 let matchedSoFar = 0; // array use correct match using push
@@ -17,12 +16,33 @@ const startOverBtn = document.querySelector('#start-over');
 // const startOverBtn = document.querySelector.addEventListener('click', )('#start-over'); //what to add inside addeventlistener
 // beginBtn.addEventListener('click', begin); //for begin and start over buttons
 // const cardsBack = Array.from(document.querySelector('.back')); need for start over?
+
+// const startingTime = 1;
+// let time = startingTime * 60;
+// const countdownEl=document.getElementById('countdown');
+
+// const startTimer = function(){
+//     const minutes = Math.floor(time / 60);
+//     let seconds = time % 60;
+
+//     seconds = seconds < 10 ? '0' + seconds : seconds
+//     countdownEl.innerHTMl = `${minutes}: ${seconds}`;
+//     time--;
+//     console.log('timer started');
+//     setInterval(startTimer, 1000); //same as 1 second
+// } 
+
+// const noTime = function(){
+//     console.log('no timer');
+// }
+
 const begin = function() { 
     mixCards();
     console.log('game has begun');
     cards.forEach((card)=> {
         card.style.pointerEvents = 'auto';
     });
+    // startTimer();
     }
 beginBtn.addEventListener('click', begin);
 const flip = function(e){
@@ -43,14 +63,12 @@ const doCardsMatch = function(firstImage, secondImage){
         if (firstCardAttribute === secondCardAttribute) {
             console.log('matched');
             previousCard = null;  // null is a falsey data type
-
             matchedCards++;
             if(matchedCards === 6){
                setTimeout(() => {
                 return mixCards();
                }, 1000);
             }
-
         }else if (firstCardAttribute !== secondCardAttribute){
             console.log('card is not a match');
             setTimeout(() => {
@@ -67,27 +85,7 @@ const doCardsMatch = function(firstImage, secondImage){
 function init(e){
     console.log('im working');
 }
-init();
-//timer
-
-//matched so far //use array and .push
-
-
-// 
-
-//shuffle
-// cards.forEach(function(card) {     //to flip cards
-//     card.addEventListener('click', flip);
-
-
-
-// });
-
-// const begin = function() { ///chnage to init?    //beginBtndocument.querySelector('#begin').addEventListener('click', init)
-//     console.log('game has begun');
-//     } //same as init 
-
-// const cardsBack = document.querySelector('.back');
+init(); 
 const startOver = function() {
      console.log('game will start over');
      cards.forEach(function(card){
@@ -95,12 +93,8 @@ const startOver = function() {
      });
     }
     startOverBtn.addEventListener('click', startOver);
-const startTimer = function(){
-    console.log('timer started');
-}//same as begin 
-const noTime = function(){
-    console.log('no timer');
-}
+
+
 let mixCards = function(){
     console.log('cards will be shuffled');
     matchedCards = 0;
@@ -109,29 +103,19 @@ let mixCards = function(){
         let randomIndex = Math.floor(Math.random() * cards.length);
         cards[i].style.order = randomIndex; 
     }
-    // cards.forEach(function(card) {     //to flip cards
-    //     // card.classList.remove('flip');
-    //     cards.addEventListener('click', flip);
-    //     });
 }
 
 cards.forEach(function(card) {     //to flip cards
     card.addEventListener('click', flip);
-    // card.classList.toggle('flip');
-
-
 });
 
 document.querySelector('#begin').addEventListener('click', begin); //for begin and start over buttons
 document.querySelector('#start-over').addEventListener('click', startOver);
 
 
-document.querySelector('#start-time').addEventListener('click', startTimer); //for tine options
-document.querySelector('#no-time').addEventListener('click', noTime);
+// document.querySelector('#start-time').addEventListener('click', startTimer); //for tine options
+// document.querySelector('#no-time').addEventListener('click', noTime);
 
-// document.querySelector('#footer').addEventListener('click', mixCards);   //to mix cards
-
-//change these to add the element made . beginBtn.addEventListener('click' init);
 
 
 
