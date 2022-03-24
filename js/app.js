@@ -17,7 +17,6 @@ let seconds = 30;
 const beginBtn = document.querySelector('#begin');
 const startOverBtn = document.querySelector('#start-over');
 const countdownEl = document.querySelector('#countdown');
-let messageEl = document.querySelector('#message'); //add instructions 
 let winOrLoseEl = document.querySelector('#win-lose');
 
 //add event listeners
