@@ -3,7 +3,12 @@
   }
 body {
     margin: 0;
-    font-family: helvetica;
+    font-family: "Syncopate", helvetica;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: darkgray;
 }
 
 #game-board {
