@@ -35,7 +35,7 @@ const flip = function(e){
         
     }
  }
-//flip(); //doesnt work when i call the function
+
  
 const doCardsMatch = function(firstImage, secondImage){
     let firstCardAttribute = firstImage.getAttribute('data-id'); //create elements to compare the 2 current cards
