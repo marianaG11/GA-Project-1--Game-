@@ -5,7 +5,7 @@ GA-Project-1-Game
 The goal of the memory card game is to match each card to its corresponding pair.  The player wins once all cards are paired before the 30 second time limit is up!
 
 ## Game Board
-
+![Game Board](/imgs/imgs/Game%20Board.png)
 
 ## Technologies Used
 * HTML
@@ -13,10 +13,6 @@ The goal of the memory card game is to match each card to its corresponding pair
 * JavaScript 
 
 ## Getting Started
-
-
-
-
 Game Instructions:
 1. Press the begin button to start the game.
 2. Click on a card, and try to match all twelve cards.
@@ -27,4 +23,4 @@ Game Instructions:
 * Add more levels of difficulty depending on the time limit. 
 * Add sound effects as well as effects while the card is flipped over. 
 * Include more cards to match.
-* Include limited matching attempts to avoid any time glitches.  
+* Include limited matching attempts.  

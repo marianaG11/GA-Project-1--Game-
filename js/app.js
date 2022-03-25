@@ -68,6 +68,7 @@ function doCardsMatch(firstImage, secondImage){
     
 //startTimer begins the countdown
 function startTimer(total){
+    beginBtn.style.display = 'none';
     interval = setInterval(() => {
      total--;
      update(total);
@@ -92,6 +93,7 @@ function resetTimer() {
 
 //startOver calls mixCards function to shuffle the cards again and it also resets the timer
 function startOver() {
+    beginBtn.style.display = '';
     cards.forEach(function(card){
        card.classList.remove('flip');
     });
