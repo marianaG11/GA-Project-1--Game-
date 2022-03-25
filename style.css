@@ -91,3 +91,9 @@ img {
 h1 {
   margin: 0px auto 10px;
 }
+
+#win-lose {
+  font-size: larger;
+  margin: 10px;
+  font-weight: bold;
+}

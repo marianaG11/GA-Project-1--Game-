@@ -4,7 +4,6 @@ const cards = Array.from(document.querySelectorAll('.cards'));
 cards.forEach((card)=> {
     card.style.pointerEvents = 'none'; //to avoid user clicking on card before mixing 
 });
-console.log(cards);
 
 //state variables 
 let previousCard; 
@@ -20,7 +19,7 @@ const countdownEl = document.querySelector('#countdown');
 let winOrLoseEl = document.querySelector('#win-lose');
 
 //add event listeners
-document.querySelector('#begin').addEventListener('click', begin); //for begin and start over buttons
+document.querySelector('#begin').addEventListener('click', begin); 
 document.querySelector('#start-over').addEventListener('click', startOver);
 startOverBtn.addEventListener('click', startOver);
 beginBtn.addEventListener('click', begin);
@@ -28,15 +27,16 @@ cards.forEach(function(card) {     //to flip cards
     card.addEventListener('click', flip);
 });
 
+//begin function starts the timer and shuffles the cards
 function begin() { 
     mixCards();
-    console.log('game has begun');
     cards.forEach((card)=> {
         card.style.pointerEvents = 'auto';
     });
     startTimer(seconds);
 }
 
+//flip function flips each card when they are clicked
 function flip(e){
     let currentCard = e.target;
         currentCard.classList.toggle('flip');
@@ -48,28 +48,26 @@ function flip(e){
     showMessage();
 }
 
+//doCardsMatch checks if the cards match correctly
 function doCardsMatch(firstImage, secondImage){
     let firstCardAttribute = firstImage.getAttribute('data-id'); //create elements to compare the 2 current cards
     let secondCardAttribute = secondImage.getAttribute('data-id');
     if (firstCardAttribute === secondCardAttribute) {
-        console.log('matched');
         matchedSoFar.push(firstCardAttribute);
         matchedSoFar.push(secondCardAttribute); //pushes cards into matched so far array
         previousCard = null;  // null is a falsey data type
         matchedCards++;
-        }else if (firstCardAttribute !== secondCardAttribute){
-        console.log('card is not a match');
+    }else if (firstCardAttribute !== secondCardAttribute){
         setTimeout(() => {
-            firstImage.classList.remove('flip');   //flip back around to show question mark . add unflip function
+            firstImage.classList.remove('flip');   //flip back around to show question mark
             secondImage.classList.remove('flip');
             previousCard= null;
             }, 800);
         }
 };
     
-
+//startTimer begins the countdown
 function startTimer(total){
-    console.log(total)
     interval = setInterval(() => {
      total--;
      update(total);
@@ -85,14 +83,15 @@ function update(total) {
     countdownEl.innerText = seconds;
 }
 
+//resetTimer resets the seconds to 30 again
 function resetTimer() {
     seconds = 30;
     countdownEl.innerText = '30';
     clearInterval(interval);
 }
 
+//startOver calls mixCards function to shuffle the cards again and it also resets the timer
 function startOver() {
-    console.log('game will start over');
     cards.forEach(function(card){
        card.classList.remove('flip');
     });
@@ -103,6 +102,7 @@ function startOver() {
     winOrLoseEl.innerText=' ';
  }
 
+
 function showMessage() {
     if (matchedSoFar.length === cards.length){
         clearInterval(interval); 
@@ -111,8 +111,8 @@ function showMessage() {
 }
 showMessage();
 
+//shuffles cards 
 function mixCards(){
-    console.log('cards will be shuffled');
     matchedCards = 0;
     currentCard = previousCard = "";
     for (let i=0; i < cards.length; i++){
