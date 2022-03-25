@@ -13,6 +13,8 @@ The goal of the memory card game is to match each card to its corresponding pair
 * JavaScript 
 
 ## Getting Started
+[Click here to go to the game!](https://marianag11.github.io/GA-Project-1--Game-/)
+
 Game Instructions:
 1. Press the begin button to start the game.
 2. Click on a card, and try to match all twelve cards.
